@@ -5,6 +5,9 @@ import SongCard from "./SongCard";
 import { UsersIcon } from "@heroicons/react/24/outline";
 import { useState, useEffect } from "react";
 
+
+import { Button, Modal } from "flowbite-react";
+
 function MainContent(props) {
   const { songs, playlists, artists } = props;
   // const [songs, setSongs] = useState([])
@@ -63,7 +66,9 @@ function MainContent(props) {
         <div className="flex space-x-8">
           {songs.slice(0, 5).map((song, index) => (
             <SongCard song={song} key={index + song.name} />
+
           ))}
+
           {/* TODO: Remove the following line if pulling in songs from api */}
         </div>
       </div>
@@ -74,11 +79,14 @@ function MainContent(props) {
         {/* You can also lift up this axios call so you can access it in NowPlaying */}
         <div className="flex space-x-8">
           {artists.slice(0, 5).map((artist, index) => (
+
             <ArtistCard artist={artist} key={index + artist.name} />
+
           ))}
           {/* TODO: Remove the following line if pulling in artists from api */}
         </div>
       </div>
+
     </div>
   );
 }

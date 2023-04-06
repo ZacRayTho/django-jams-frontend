@@ -5,6 +5,7 @@ import MainContent from "@/components/MainContent";
 import NowPlaying from "@/components/NowPlaying";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Modal } from "flowbite-react";
 
 export default function Home() {
   const [songs, setSongs] = useState([])
@@ -41,7 +42,7 @@ export default function Home() {
       </Head>
       <main className="flex">
         {/* Sidebar */}
-        <Sidebar songs={songs} playlists={playlists} artists={artists}/>
+        <Sidebar songs={songs} playlists={playlists} setPlaylists={setPlaylists} artists={artists}/>
         <div className="flex flex-col h-100 w-full">
           {/* Main content */}
           <MainContent songs={songs} playlists={playlists} artists={artists}/>
@@ -49,6 +50,7 @@ export default function Home() {
           {/* Now playing */}
           <NowPlaying />
         </div>
+        
       </main>
     </>
   );
