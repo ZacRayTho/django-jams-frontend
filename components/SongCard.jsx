@@ -12,7 +12,7 @@ function SongCard({ song }) {
           width={100}
         /> */}
       <p className="text-center font-bold pt-6">{song?.name || "Song Name"}</p>
-      <p className="text-center">{song?.artist.name || "Artist Name"}</p>
+      <p className="text-center">{song?.artist[0] || "Artist Name"}</p>
     </div>
   );
 }

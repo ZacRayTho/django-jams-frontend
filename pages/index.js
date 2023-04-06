@@ -3,8 +3,34 @@ import Image from "next/image";
 import Sidebar from "@/components/Sidebar";
 import MainContent from "@/components/MainContent";
 import NowPlaying from "@/components/NowPlaying";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 export default function Home() {
+  const [songs, setSongs] = useState([])
+  const [playlists, setPlaylists] = useState([])
+  const [artists, setArtists] = useState([])
+
+  let urls = [
+    "https://8000-zacraytho-djangojamspro-p5yq4vj0c9s.ws-us93.gitpod.io/api/songs/",
+    "https://8000-zacraytho-djangojamspro-p5yq4vj0c9s.ws-us93.gitpod.io/api/playlists/",
+    "https://8000-zacraytho-djangojamspro-p5yq4vj0c9s.ws-us93.gitpod.io/api/artists/"
+  ];
+
+  useEffect(() => {
+    axios.all(urls.map((url) => axios.get(url)))
+      .then(axios.spread((songs, playlists, artists) => {
+
+        setSongs([...songs.data])
+        setPlaylists([...playlists.data])
+        setArtists([...artists.data])
+
+      }))
+  }, [])
+  // console.log("songs", songs)
+  // console.log("playlists", playlists)
+  // console.log("artists", artists)
+
   return (
     <>
       <Head>
@@ -15,10 +41,10 @@ export default function Home() {
       </Head>
       <main className="flex">
         {/* Sidebar */}
-        <Sidebar />
+        <Sidebar songs={songs} playlists={playlists} artists={artists}/>
         <div className="flex flex-col h-100 w-full">
           {/* Main content */}
-          <MainContent />
+          <MainContent songs={songs} playlists={playlists} artists={artists}/>
 
           {/* Now playing */}
           <NowPlaying />

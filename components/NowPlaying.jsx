@@ -18,19 +18,19 @@ import {
 import axios from "axios";
 
 function NowPlaying({ song }) {
-  axios
-    .get("/user?ID=12345")
-    .then(function (response) {
-      // handle success
-      console.log(response);
-    })
-    .catch(function (error) {
-      // handle error
-      console.log(error);
-    })
-    .finally(function () {
-      // always executed
-    });
+  // axios
+  //   .get("https://8000-zacraytho-djangojamspro-p5yq4vj0c9s.ws-us93.gitpod.io/api/songs/")
+  //   .then(function (response) {
+  //     // handle success
+  //     console.log(response);
+  //   })
+  //   .catch(function (error) {
+  //     // handle error
+  //     console.log(error);
+  //   })
+  //   .finally(function () {
+  //     // always executed
+  //   });
 
   return (
     <div className="flex items-center justify-center mx-0 bottom-0 bg-slate-900 z-50 text-slate-50 h-24 border-t border-slate-500">
