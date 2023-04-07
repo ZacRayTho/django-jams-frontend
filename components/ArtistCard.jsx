@@ -24,8 +24,6 @@ function ArtistCard({ artist }) {
           </p>
         </div>
       
-      
-      
     </>
   );
 }

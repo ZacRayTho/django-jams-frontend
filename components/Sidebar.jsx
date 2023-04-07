@@ -110,7 +110,7 @@ function Sidebar(props) {
               {playlist.name}
             </p>
             <button
-            className="bg-red-700 py-2 px-4 rounded-full"
+            className="bg-amber-800 py-2 px-4 rounded-full"
               onClick={() => destroy(playlist.id)}
             >
               Delete
