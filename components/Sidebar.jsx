@@ -8,9 +8,11 @@ import {
 import { PlusCircleIcon } from "@heroicons/react/24/outline";
 import axios from "axios";
 import Modal from "./Modal";
+import { useRef } from "react";
 
 function Sidebar(props) {
   const { songs, playlists, artists, setPlaylists } = props;
+  const inputRef = useRef(null)
   // axios
   //   .get("https://8000-zacraytho-djangojamspro-p5yq4vj0c9s.ws-us93.gitpod.io/api/songs/")
   //   .then(function (response) {
@@ -24,6 +26,35 @@ function Sidebar(props) {
   //   .finally(function () {
   //     // always executed
   //   });
+  function post() {
+
+    axios
+      .post("https://8000-zacraytho-djangojamspro-p5yq4vj0c9s.ws-us93.gitpod.io/api/playlists/", {
+        name: inputRef.current.value
+      })
+      .then(function (response) {
+        alert("Playlist Created! Please Refresh")
+        console.log(response);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+  }
+
+  function destroy(id) {
+
+    axios
+      .delete("https://8000-zacraytho-djangojamspro-p5yq4vj0c9s.ws-us93.gitpod.io/api/playlists/" + id + "/")
+      .then(function (response) {
+        alert("Playlist destroyed! Please Refresh")
+        console.log(response);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+  }
 
 
   return (
@@ -49,16 +80,18 @@ function Sidebar(props) {
           <Bars3Icon className="h-8 w-8" />
           <p className="pl-2 font-bold">Your Library</p>
         </div>
+
+        <input type="text" placeholder="New Playlist Name" className="text-black" ref={inputRef} />
         <button
           className="flex items-center cursor-pointer"
-          data-modal-target="authentication-modal"
-          data-modal-toggle="authentication-modal"
+          onClick={post}
           type="button">
           <div className="flex items-center">
             <PlusCircleIcon className="h-8 w-8" />
             <p className="pl-2 font-bold">Create Playlist</p>
           </div>
         </button>
+
         <div className="flex items-center cursor-pointer">
           <HeartIcon className="h-8 w-8 border-2 rounded-md" />
           <p className="pl-2 font-bold">Liked Songs</p>
@@ -70,12 +103,24 @@ function Sidebar(props) {
       <div className="text-slate-50 flex flex-col pl-1 space-y-4">
         <p className="font-bold">Playlists</p>
         {playlists.map((playlist, index) => (
-          <p key={index + playlist.name}>{playlist.name}</p>
+          <div className="flex items-center justify-between">
+            <p
+              key={index + playlist.name}
+              >
+              {playlist.name}
+            </p>
+            <button
+            className="bg-red-700 py-2 px-4 rounded-full"
+              onClick={() => destroy(playlist.id)}
+            >
+              Delete
+            </button>
+          </div>
         ))}
       </div>
 
       <Modal />
-          
+
     </div>
   );
 }
